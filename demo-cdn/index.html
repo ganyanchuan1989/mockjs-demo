@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./mock.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+      var data = Mock.mock({
+        // 属性 list 的值是一个数组，其中含有 1 到 10 个元素
+        "list|1-10": [
+          {
+            // 属性 id 是一个自增数，起始值为 1，每次增 1
+            "id|+1": 1,
+          },
+        ],
+      });
+      Mock.mock("http://localhost:5500/get", "get", function () {
+        return {
+          // 属性 list 的值是一个数组，其中含有 1 到 10 个元素
+          "list|1-10": [
+            {
+              // 属性 id 是一个自增数，起始值为 1，每次增 1
+              "id|+1": 1,
+            },
+          ],
+        };
+      });
+      Mock.mock("http://localhost:5500/post", "post", function () {
+        return {
+          // 属性 list 的值是一个数组，其中含有 1 到 10 个元素
+          "list|1-10": [
+            {
+              // 属性 id 是一个自增数，起始值为 1，每次增 1
+              "id|+1": 1,
+            },
+          ],
+        };
+      });
+      Mock.setup({
+        timeout: 4000,
+      });
+
+      function sendGet() {
+        // 为给定 ID 的 user 创建请求
+        axios
+          .get("http://localhost:5500/get")
+          .then(function (response) {
+            console.log(response);
+            document.getElementById("msg").innerText = JSON.stringify(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+
+      function sendPost() {
+        // 为给定 ID 的 user 创建请求
+        axios
+          .post("http://localhost:5500/post")
+          .then(function (response) {
+            console.log(response);
+            document.getElementById("msg").innerText = JSON.stringify(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Hello Mockjs Demo</h1>
+    <button onclick="sendGet()">send get request</button>
+    <button onclick="sendPost()">send post request</button>
+    <div id="msg"></div>
+  </body>
+</html>

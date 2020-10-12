@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+      function sendGet() {
+        // 为给定 ID 的 user 创建请求
+        axios
+          .get("http://localhost:8090/get")
+          .then(function (response) {
+            console.log(response);
+            document.getElementById("msg").innerText = JSON.stringify(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+
+      function sendPost() {
+        // 为给定 ID 的 user 创建请求
+        axios
+          .post("http://localhost:8090/post")
+          .then(function (response) {
+            console.log(response);
+            document.getElementById("msg").innerText = JSON.stringify(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+
+      function sendGetJson() {
+        // 为给定 ID 的 user 创建请求
+        axios
+          .get("http://localhost:8090/get/json")
+          .then(function (response) {
+            console.log(response);
+            document.getElementById("msg").innerText = JSON.stringify(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="sendGet()">send get request</button>
+    <button onclick="sendPost()">send post request</button>
+    <button onclick="sendGetJson()">send get json request</button>
+    <div id="msg"></div>
+  </body>
+</html>
